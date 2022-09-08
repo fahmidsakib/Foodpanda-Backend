@@ -13,7 +13,7 @@ const morgan = require('morgan')
 app.use(cors())
 app.use(express.urlencoded({ extended: true }))
 
-mongoose.connect('mongodb+srv://FahmidSakib:1234@foodpanda.0mca7gz.mongodb.net/?retryWrites=true&w=majority', {
+mongoose.connect(process.env.DB, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 })
