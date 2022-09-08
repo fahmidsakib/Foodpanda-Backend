@@ -1,7 +1,7 @@
 const express = require('express')
 const RestaurantModel = require('../models/restaurant.model')
 const DishModel = require('../models/dish.model')
-// const { route } = require('./auth.route')
+const OrderModel = require('../models/order.model')
 const router = express.Router()
 
 
@@ -9,7 +9,7 @@ router.get('/', async (req, res) => {
     const restaurants = await RestaurantModel.find({})
         .populate('addedBy')
         .populate('dishes')
-    // .populate('orders', 'customerId, restaurantId, totalCost')
+        .populate('orders', 'customerId, restaurantId, totalCost')
     res.status(200).json({ data: restaurants })
 })
 
@@ -51,21 +51,23 @@ router.get('/:id', async (req, res) => {
 })
 
 
-
-
-router.post('/signin', async (req, res) => {
-    const { email, password } = req.body
-    if (!email || !password) return res.status(400).json({ error: 'Please provide email and password' })
-    const existingUser = await UserModel.findOne({ email: email.toLowerCase() })
-    if (existingUser === null) return res.status(400).json({ error: 'User not found' })
-    const result = bcrypt.compareSync(password, existingUser.password)
-    if (result) {
-        const payload = { _id: existingUser._id, name: existingUser.name, email: email.toLowerCase() }
-        const accessToken = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, { expiresIn: process.env.ACCESS_TOKEN_EXPIRATION_TIME })
-        const refreshToken = jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET, { expiresIn: process.env.REFRESH_TOKEN_EXPIRATION_TIME })
-        return res.status(200).json({ data: { refreshToken, accessToken, payload } })
+router.get('/:id/orders', async (req, res) => {
+    let orders
+    try {
+        if (req.query.status !== undefined) {
+            orders = await OrderModel.find({ restaurantId: req.params.id, status: req.query.status })
+                .populate('customerId', 'name')
+                .populate('restaurantId', 'name')
+        }
+        else {
+            orders = await OrderModel.find({ restaurantId: req.params.id })
+                .populate('customerId', 'name')
+                .populate('restaurantId', 'name')
+        }
+        res.status(200).send({ data: orders })
+    } catch (e) {
+        res.status(501).json({ error: e.message })
     }
-    else return res.status(400).json({ error: 'Wrong Password' })
 })
 
 
