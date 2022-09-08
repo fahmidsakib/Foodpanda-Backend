@@ -1,0 +1,308 @@
+{
+	"info": {
+		"_postman_id": "4b935ac8-b63c-481e-a5f0-213306feb6a2",
+		"name": "Foodpanda",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "22888634"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Signup",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Test\",\r\n    \"email\": \"test@gmail.com\",\r\n    \"password\": \"1234\",\r\n    \"confirmPassword\": \"1234\"\r\n}"
+						},
+						"url": "http://localhost:8000/auth/signup"
+					},
+					"response": []
+				},
+				{
+					"name": "Signin",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"test@gmail.com\",\r\n    \"password\": \"1234\"\r\n}"
+						},
+						"url": "http://localhost:8000/auth/signin"
+					},
+					"response": []
+				},
+				{
+					"name": "Get New Access Token",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzAxNTk0MjlmMWQzYzQ4OTNkODQ4ZmQiLCJuYW1lIjoiRmFobWlkIFNha2liIiwiZW1haWwiOiJmYWhtaWRzYWtpYjk3QGdtYWlsLmNvbSIsImlhdCI6MTY2MTMzMDQ0NSwiZXhwIjoxNjYxOTM1MjQ1fQ.UlOwohvrEmW6b6nZcDICp96QfTznH8tfst6IKGrx2TE\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8000/auth/token"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Restaurants",
+			"item": [
+				{
+					"name": "Add Restaurant",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzE5OTYwYTIxMDJlZjQ2ODdlYmZlODUiLCJuYW1lIjoiVGVzdCIsImVtYWlsIjoidGVzdEBnbWFpbC5jb20iLCJpYXQiOjE2NjI2MjE2ODAsImV4cCI6MTY2MjcwODA4MH0.kQWl1u-hzSlAKoEFBRsKsb_umeXMoT8fjADMwer2Uu4",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"KFC\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8000/restaurants/add"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Restaurants",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzE5OTYwYTIxMDJlZjQ2ODdlYmZlODUiLCJuYW1lIjoiVGVzdCIsImVtYWlsIjoidGVzdEBnbWFpbC5jb20iLCJpYXQiOjE2NjI2MjE2ODAsImV4cCI6MTY2MjcwODA4MH0.kQWl1u-hzSlAKoEFBRsKsb_umeXMoT8fjADMwer2Uu4",
+								"type": "text"
+							}
+						],
+						"url": "http://localhost:8000/restaurants/"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All dishes of a Restaurant",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzE5OTYwYTIxMDJlZjQ2ODdlYmZlODUiLCJuYW1lIjoiVGVzdCIsImVtYWlsIjoidGVzdEBnbWFpbC5jb20iLCJpYXQiOjE2NjI2MjE2ODAsImV4cCI6MTY2MjcwODA4MH0.kQWl1u-hzSlAKoEFBRsKsb_umeXMoT8fjADMwer2Uu4",
+								"type": "text"
+							}
+						],
+						"url": "http://localhost:8000/restaurants/6319a09ce8e82398909335f6"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Orders",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzE5OTYwYTIxMDJlZjQ2ODdlYmZlODUiLCJuYW1lIjoiVGVzdCIsImVtYWlsIjoidGVzdEBnbWFpbC5jb20iLCJpYXQiOjE2NjI2MjE2ODAsImV4cCI6MTY2MjcwODA4MH0.kQWl1u-hzSlAKoEFBRsKsb_umeXMoT8fjADMwer2Uu4",
+								"type": "text"
+							}
+						],
+						"url": "http://localhost:8000/restaurants/6319bb5c230e652277fef5a5/orders"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Orders by Status",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzE5OTYwYTIxMDJlZjQ2ODdlYmZlODUiLCJuYW1lIjoiVGVzdCIsImVtYWlsIjoidGVzdEBnbWFpbC5jb20iLCJpYXQiOjE2NjI2MjE2ODAsImV4cCI6MTY2MjcwODA4MH0.kQWl1u-hzSlAKoEFBRsKsb_umeXMoT8fjADMwer2Uu4",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/restaurants/6319bb5c230e652277fef5a5/orders?status=completed",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"restaurants",
+								"6319bb5c230e652277fef5a5",
+								"orders"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "completed"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Revenue",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzE5OTYwYTIxMDJlZjQ2ODdlYmZlODUiLCJuYW1lIjoiVGVzdCIsImVtYWlsIjoidGVzdEBnbWFpbC5jb20iLCJpYXQiOjE2NjI2MjE2ODAsImV4cCI6MTY2MjcwODA4MH0.kQWl1u-hzSlAKoEFBRsKsb_umeXMoT8fjADMwer2Uu4",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/restaurants/6319bb5c230e652277fef5a5/revenue?start_date=2022-09-08",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"restaurants",
+								"6319bb5c230e652277fef5a5",
+								"revenue"
+							],
+							"query": [
+								{
+									"key": "start_date",
+									"value": "2022-09-08"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Dishes",
+			"item": [
+				{
+					"name": "Add Dishes",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzE5OTYwYTIxMDJlZjQ2ODdlYmZlODUiLCJuYW1lIjoiVGVzdCIsImVtYWlsIjoidGVzdEBnbWFpbC5jb20iLCJpYXQiOjE2NjI2MjE2ODAsImV4cCI6MTY2MjcwODA4MH0.kQWl1u-hzSlAKoEFBRsKsb_umeXMoT8fjADMwer2Uu4",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Lemonade\",\r\n    \"price\": 1.49\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8000/restaurants/6319bb5c230e652277fef5a5/add-dish"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Orders",
+			"item": [
+				{
+					"name": "Add order",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzE5OTYwYTIxMDJlZjQ2ODdlYmZlODUiLCJuYW1lIjoiVGVzdCIsImVtYWlsIjoidGVzdEBnbWFpbC5jb20iLCJpYXQiOjE2NjI2MjE2ODAsImV4cCI6MTY2MjcwODA4MH0.kQWl1u-hzSlAKoEFBRsKsb_umeXMoT8fjADMwer2Uu4",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"restaurantId\": \"6319bb5c230e652277fef5a5\",\r\n    \"dishes\": [{\"dishId\": \"6319bb7a230e652277fef5a7\", \"quantity\": 3}, \r\n    {\"dishId\": \"6319bb85230e652277fef5aa\", \"quantity\": 1}]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8000/orders/add"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Order Details",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzE5OTYwYTIxMDJlZjQ2ODdlYmZlODUiLCJuYW1lIjoiVGVzdCIsImVtYWlsIjoidGVzdEBnbWFpbC5jb20iLCJpYXQiOjE2NjI2MjE2ODAsImV4cCI6MTY2MjcwODA4MH0.kQWl1u-hzSlAKoEFBRsKsb_umeXMoT8fjADMwer2Uu4",
+								"type": "text"
+							}
+						],
+						"url": "http://localhost:8000/orders/6319b38435a3b5c470db84aa"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Order Status",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzE5OTYwYTIxMDJlZjQ2ODdlYmZlODUiLCJuYW1lIjoiVGVzdCIsImVtYWlsIjoidGVzdEBnbWFpbC5jb20iLCJpYXQiOjE2NjI2MjE2ODAsImV4cCI6MTY2MjcwODA4MH0.kQWl1u-hzSlAKoEFBRsKsb_umeXMoT8fjADMwer2Uu4",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"status\": \"completed\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8000/orders/6319bf653f372a11af2e2105/update"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
