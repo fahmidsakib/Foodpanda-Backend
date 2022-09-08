@@ -13,6 +13,7 @@ router.get('/', async (req, res) => {
     res.status(200).json({ data: restaurants })
 })
 
+
 router.post('/add', async (req, res) => {
     const { name } = req.body
     if (!name) return res.status(400).json({ error: 'Name is required' })
@@ -40,17 +41,6 @@ router.post('/:id/add-dish', async (req, res) => {
 })
 
 
-router.get('/:id', async (req, res) => {
-    try {
-        const restaurant = await RestaurantModel.find({ _id: req.params.id })
-            .populate('dishes')
-        res.status(200).send({ data: restaurant })
-    } catch (e) {
-        res.status(501).json({ error: e.message })
-    }
-})
-
-
 router.get('/:id/orders', async (req, res) => {
     let orders
     try {
@@ -70,6 +60,28 @@ router.get('/:id/orders', async (req, res) => {
     }
 })
 
+
+router.get('/:id/revenue', async (req, res) => {
+    const orders = await OrderModel.find({ restaurantId: req.params.id, status: "completed" })
+    console.log(orders)
+    let start = orders[0].createdAt.getTime(), end = Date.now(), revenue = 0
+    for (let i = 0; i < orders.length; i++){
+        console.log(start <= orders[i].updatedAt.getTime() && end >= orders[i].updatedAt.getTime())
+        if (start <= orders[i].updatedAt.getTime() && end >= orders[i].updatedAt.getTime()) revenue += orders[i].totalCost
+    }
+    res.status(200).send({ data: revenue })
+})
+
+
+router.get('/:id', async (req, res) => {
+    try {
+        const restaurant = await RestaurantModel.find({ _id: req.params.id })
+            .populate('dishes')
+        res.status(200).send({ data: restaurant })
+    } catch (e) {
+        res.status(501).json({ error: e.message })
+    }
+})
 
 
 module.exports = router
