@@ -12,7 +12,7 @@ const orderSchema = new mongoose.Schema(
         },
         restaurentId: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'restaurent'
+            ref: 'restaurant'
         },
         dishes: [
             {

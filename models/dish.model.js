@@ -10,6 +10,10 @@ const dishSchema = new mongoose.Schema(
             type: Number,
             required: true,
         },
+        restaurantId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'restaurant'
+        }
     },
     { timestamps: true }
 )

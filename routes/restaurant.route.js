@@ -1,14 +1,50 @@
 const express = require('express')
 const RestaurentModel = require('../models/restaurant.model')
+const DishModel = require('../models/dish.model')
+// const { route } = require('./auth.route')
 const router = express.Router()
+
+
+router.get('/', async (req, res) => {
+    const restaurants = await RestaurentModel.find({})
+        .populate('addedBy')
+        .populate('dishes')
+    // .populate('orders', 'customerId, restaurantId, totalCost')
+    res.status(200).json({ data: restaurants })
+})
 
 router.post('/add', async (req, res) => {
     const { name } = req.body
-    if (!name ) return res.status(400).json({ error: 'Name is required' })
+    if (!name) return res.status(400).json({ error: 'Name is required' })
     const newRestaurant = new RestaurentModel({ name, addedBy: req.payload._id })
     try {
         const savedRestaurant = await newRestaurant.save()
         res.status(201).json({ alert: "Restaurant added successfully" })
+    } catch (e) {
+        res.status(501).json({ error: e.message })
+    }
+})
+
+
+router.post('/:id/add-dish', async (req, res) => {
+    const { name, price } = req.body
+    if (!name || !price) return res.status(400).json({ error: 'Both name and price is required' })
+    const newDish = new DishModel({ name, price, restaurantId: req.params.id })
+    const savedDish = await newDish.save()
+    try {
+        const restaurant = await RestaurentModel.updateOne({ _id: req.params.id }, { $push: { dishes: savedDish._id } })
+        res.status(200).send({ alert: "A new dish added to the restaurant" })
+    } catch (e) {
+        res.status(501).json({ error: e.message })
+    }
+})
+
+router.get('/:id', async (req, res) => {
+    try {
+        const restaurant = await RestaurentModel.find({ _id: req.params.id })
+            .populate('dishes')
+        console.log(restaurant)
+        res.status(200).send({ data: restaurant })
     } catch (e) {
         res.status(501).json({ error: e.message })
     }
