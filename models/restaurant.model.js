@@ -24,5 +24,5 @@ const restaurantSchema = new mongoose.Schema(
     { timestamps: true }
 )
 
-const restaurantModel = mongoose.model("restaurent", restaurantSchema)
+const restaurantModel = mongoose.model("restaurant", restaurantSchema)
 module.exports = restaurantModel

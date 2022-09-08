@@ -1,12 +1,12 @@
 const express = require('express')
-const RestaurentModel = require('../models/restaurant.model')
+const RestaurantModel = require('../models/restaurant.model')
 const DishModel = require('../models/dish.model')
 // const { route } = require('./auth.route')
 const router = express.Router()
 
 
 router.get('/', async (req, res) => {
-    const restaurants = await RestaurentModel.find({})
+    const restaurants = await RestaurantModel.find({})
         .populate('addedBy')
         .populate('dishes')
     // .populate('orders', 'customerId, restaurantId, totalCost')
@@ -16,7 +16,7 @@ router.get('/', async (req, res) => {
 router.post('/add', async (req, res) => {
     const { name } = req.body
     if (!name) return res.status(400).json({ error: 'Name is required' })
-    const newRestaurant = new RestaurentModel({ name, addedBy: req.payload._id })
+    const newRestaurant = new RestaurantModel({ name, addedBy: req.payload._id })
     try {
         const savedRestaurant = await newRestaurant.save()
         res.status(201).json({ alert: "Restaurant added successfully" })
@@ -32,23 +32,26 @@ router.post('/:id/add-dish', async (req, res) => {
     const newDish = new DishModel({ name, price, restaurantId: req.params.id })
     const savedDish = await newDish.save()
     try {
-        const restaurant = await RestaurentModel.updateOne({ _id: req.params.id }, { $push: { dishes: savedDish._id } })
+        const restaurant = await RestaurantModel.updateOne({ _id: req.params.id }, { $push: { dishes: savedDish._id } })
         res.status(200).send({ alert: "A new dish added to the restaurant" })
     } catch (e) {
         res.status(501).json({ error: e.message })
     }
 })
 
+
 router.get('/:id', async (req, res) => {
     try {
-        const restaurant = await RestaurentModel.find({ _id: req.params.id })
+        const restaurant = await RestaurantModel.find({ _id: req.params.id })
             .populate('dishes')
-        console.log(restaurant)
         res.status(200).send({ data: restaurant })
     } catch (e) {
         res.status(501).json({ error: e.message })
     }
 })
+
+
+
 
 router.post('/signin', async (req, res) => {
     const { email, password } = req.body
