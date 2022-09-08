@@ -63,10 +63,10 @@ router.get('/:id/orders', async (req, res) => {
 
 router.get('/:id/revenue', async (req, res) => {
     const orders = await OrderModel.find({ restaurantId: req.params.id, status: "completed" })
-    console.log(orders)
-    let start = orders[0].createdAt.getTime(), end = Date.now(), revenue = 0
+    let start = orders[0].createdAt.getTime(), revenue = 0, end = Date.now()
+    // if (req.query.end_date === undefined) end = Date.now()
+    // else end = req.query.end_date
     for (let i = 0; i < orders.length; i++){
-        console.log(start <= orders[i].updatedAt.getTime() && end >= orders[i].updatedAt.getTime())
         if (start <= orders[i].updatedAt.getTime() && end >= orders[i].updatedAt.getTime()) revenue += orders[i].totalCost
     }
     res.status(200).send({ data: revenue })
